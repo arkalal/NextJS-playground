@@ -54,37 +54,87 @@ const VoiceChat = () => {
       ]);
     }
 
-    // Handle function calls
+    // Replace your existing function call handling code with this
     if (
       event.type === "response.done" &&
       event.response.output?.[0]?.type === "function_call"
     ) {
       const functionCall = event.response.output[0];
 
-      if (functionCall.name === "get_project_stats") {
-        try {
-          const response = await fetch("/api/project-stats");
-          const stats = await response.json();
+      switch (functionCall.name) {
+        case "get_training_data":
+          try {
+            const response = await fetch("/api/train");
+            const data = await response.json();
 
-          dataChannel.current.send(
-            JSON.stringify({
-              type: "conversation.item.create",
-              item: {
-                type: "function_call_output",
-                call_id: functionCall.call_id,
-                output: JSON.stringify(stats),
+            // Send back function call result with proper structure
+            await dataChannel.current.send(
+              JSON.stringify({
+                type: "conversation.item.create",
+                item: {
+                  type: "function_call_output",
+                  call_id: functionCall.call_id,
+                  output: JSON.stringify({
+                    training_status: data.message,
+                  }),
+                },
+              })
+            );
+
+            // Generate response with a small delay to ensure proper sequence
+            setTimeout(() => {
+              dataChannel.current.send(
+                JSON.stringify({
+                  type: "response.create",
+                  response: {
+                    modalities: ["text"],
+                  },
+                })
+              );
+            }, 100);
+          } catch (error) {
+            console.error("Error fetching training data:", error);
+          }
+          break;
+
+        case "get_project_stats":
+          try {
+            // Mock project stats since API not provided
+            const stats = {
+              projects: {
+                total: 50,
+                completed: 45,
+                ongoing: 5,
               },
-            })
-          );
+              clients: {
+                total: 40,
+                active: 35,
+              },
+            };
 
-          dataChannel.current.send(
-            JSON.stringify({
-              type: "response.create",
-            })
-          );
-        } catch (error) {
-          console.error("Error fetching stats:", error);
-        }
+            dataChannel.current.send(
+              JSON.stringify({
+                type: "conversation.item.create",
+                item: {
+                  type: "function_call_output",
+                  call_id: functionCall.call_id,
+                  output: JSON.stringify(stats),
+                },
+              })
+            );
+
+            dataChannel.current.send(
+              JSON.stringify({
+                type: "response.create",
+              })
+            );
+          } catch (error) {
+            console.error("Error with project stats:", error);
+          }
+          break;
+
+        default:
+          console.warn("Unknown function call:", functionCall.name);
       }
     }
   };
@@ -95,7 +145,7 @@ const VoiceChat = () => {
       type: "session.update",
       session: {
         instructions:
-          "You are a smart and professional AI assistant for arkalalchakravarty.com. You were developed by Arka Lal Chakravarty, not by OpenAI or ChatGPT. You help potential clients understand our services and capabilities.\n\nCore Services:\n- Website/MVP Planning, Design & Development with excellent speed and SEO optimization\n- Full Deployment and Maintenance with relentless optimization\n- Custom AI Automations & Integrations\n- React/Next.js Development\n- SEO and Performance Optimization\n\nTechnical Stack:\n- NextJS\n- MongoDB\n- React\n- Node.js\n- Vercel\n- Custom AI solutions\n\nKey Features:\n- AI-Powered Website Development\n- High-Performance & SEO Optimized Websites\n- Custom AI Automations & Chatbots\n- Full Maintenance & Support\n\nHow It Works:\n1. Initial Consultation\n   - Book a call with us\n   - We explore and research your idea\n   - Understand your vision in detail\n\n2. MVP Planning & Development\n   - Get a detailed development plan\n   - Development begins after proposal signing\n\n3. On-time Project Delivery\n   - Receive fully functional MVP\n   - All planned features implemented\n   - Ready for official launch\n\n4. Continuous Maintenance & Support\n   - Unlimited maintenance support\n   - Critical bug fixes\n   - Access to our workspace for support\n\nPricing:\n- Development Bundle (One Time): $2,000\n- Retainer Bundle (Monthly Recurring): $3,000/month\n\nDevelopment Bundle includes:\n- Full access to all features\n- React/Next.js code\n- One Custom AI automation\n- One AI Agent & Chatbot\n- One MVP, Website, AI App and Sass development\n- Unlimited Custom React Components\n- Unlimited Revisions\n- Search Engine Optimization\n- 24-hour support response time\n- Full Access to private Google workspace\n- Full Access to Email marketing automations\n\nRetainer Bundle includes:\n- 80 hours of development time per month\n- React/Next.js code\n- Unlimited Custom AI automations\n- Unlimited AI Agents & Chatbots\n- Unlimited MVPs, Website, AI Apps and Sass development\n- Unlimited Custom React Components\n- Unlimited Revisions\n- Search Engine Optimization\n- 24-hour support response time\n- Full Access to private Google workspace\n- Full Access to Email marketing automations\n\nUse professional emojis appropriately and keep responses brief, precise, and focused on our services. Format responses properly using markdown. Never make up information not provided above. If asked about something outside this scope, politely state you can only provide information about our services and technology offerings. If the user asks for contacting us, ask them to click the 'Book a Call' button and schedule a meeting with the founder.", // Your existing instructions
+          "You are a smart and professional AI assistant for arkalalchakravarty.com. You were developed by Arka Lal Chakravarty, not by OpenAI or ChatGPT. You help potential clients understand our services and capabilities.\n\nCore Services:\n- Website/MVP Planning, Design & Development with excellent speed and SEO optimization\n- Full Deployment and Maintenance with relentless optimization\n- Custom AI Automations & Integrations\n- React/Next.js Development\n- SEO and Performance Optimization\n\nTechnical Stack:\n- NextJS\n- MongoDB\n- React\n- Node.js\n- Vercel\n- Custom AI solutions\n\nKey Features:\n- AI-Powered Website Development\n- High-Performance & SEO Optimized Websites\n- Custom AI Automations & Chatbots\n- Full Maintenance & Support\n\nHow It Works:\n1. Initial Consultation\n   - Book a call with us\n   - We explore and research your idea\n   - Understand your vision in detail\n\n2. MVP Planning & Development\n   - Get a detailed development plan\n   - Development begins after proposal signing\n\n3. On-time Project Delivery\n   - Receive fully functional MVP\n   - All planned features implemented\n   - Ready for official launch\n\n4. Continuous Maintenance & Support\n   - Unlimited maintenance support\n   - Critical bug fixes\n   - Access to our workspace for support\n\nPricing:\n- Development Bundle (One Time): $2,000\n- Retainer Bundle (Monthly Recurring): $3,000/month\n\nDevelopment Bundle includes:\n- Full access to all features\n- React/Next.js code\n- One Custom AI automation\n- One AI Agent & Chatbot\n- One MVP, Website, AI App and Sass development\n- Unlimited Custom React Components\n- Unlimited Revisions\n- Search Engine Optimization\n- 24-hour support response time\n- Full Access to private Google workspace\n- Full Access to Email marketing automations\n\nRetainer Bundle includes:\n- 80 hours of development time per month\n- React/Next.js code\n- Unlimited Custom AI automations\n- Unlimited AI Agents & Chatbots\n- Unlimited MVPs, Website, AI Apps and Sass development\n- Unlimited Custom React Components\n- Unlimited Revisions\n- Search Engine Optimization\n- 24-hour support response time\n- Full Access to private Google workspace\n- Full Access to Email marketing automations\n\nUse professional emojis appropriately and keep responses brief, precise, and focused on our services. Format responses properly using markdown. Never make up information not provided above. If asked about something outside this scope, politely state you can only provide information about our services and technology offerings. If the user asks for contacting us, ask them to click the 'Book a Call' button and schedule a meeting with the founder.\n\nYou have access to training data and when asked for the training data just use the get_training_data function and respond with the recieved training data.", // Your existing instructions
       },
     };
 
@@ -118,6 +168,15 @@ const VoiceChat = () => {
                 },
               },
               required: ["metric"],
+            },
+          },
+          {
+            type: "function",
+            name: "get_training_data",
+            description: "Get your training data",
+            parameters: {
+              type: "object",
+              properties: {},
             },
           },
         ],
