@@ -9,7 +9,7 @@ const VoiceChat = () => {
   const [error, setError] = useState(null);
   const peerConnection = useRef(null);
   const dataChannel = useRef(null);
-  const audioRef = useRef(new window.Audio());
+  const audioRef = useRef(null);
 
   const handleServerMessage = async (e) => {
     const event = JSON.parse(e.data);
@@ -184,6 +184,12 @@ const VoiceChat = () => {
 
   useEffect(() => {
     return () => cleanup();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      audioRef.current = new window.Audio();
+    }
   }, []);
 
   return (
