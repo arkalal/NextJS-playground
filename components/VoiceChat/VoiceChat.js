@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./VoiceChat.module.scss";
 import CustomWave from "../CustomWave/CustomWave";
-import ConversationDisplay from "../ConversationDisplay/ConversationDisplay";
 
 const VoiceChat = () => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -252,7 +251,6 @@ const VoiceChat = () => {
               />
               <CustomWave isActive={isAISpeaking} isUser={false} />
             </div>
-            <ConversationDisplay messages={messages} />
             <div className={styles.success}>
               Connected! You can start speaking.
             </div>
