@@ -1,0 +1,75 @@
+.VoiceChat {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .voiceChatContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .startButton {
+      background-color: black;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.75);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: #cccccc;
+          color: white;
+        }
+      }
+    }
+
+    .endButton {
+      background-color: #dc2626;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.75);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: white;
+        color: #dc2626;
+      }
+    }
+
+    .error {
+      color: #dc2626;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .success {
+      color: #16a34a;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
