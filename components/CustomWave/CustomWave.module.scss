@@ -1,0 +1,19 @@
+.waveContainer {
+  width: 300px;
+  height: 100px;
+  margin: 20px auto;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.3s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .waveCanvas {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+}

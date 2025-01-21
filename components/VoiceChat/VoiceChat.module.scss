@@ -1,75 +1,101 @@
 .VoiceChat {
-  width: 90%;
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 20px;
 
   .voiceChatContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .startButton,
+    .endButton {
+      padding: 12px 30px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
 
     .startButton {
       background-color: black;
       color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.75);
-      transition: all 0.2s ease-in-out;
 
-      &:hover {
-        background-color: white;
-        color: black;
-      }
-
-      &:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-
-        &:hover {
-          background-color: #cccccc;
-          color: white;
-        }
+      &:hover:not(:disabled) {
+        background-color: #333;
+        transform: translateY(-1px);
       }
     }
 
     .endButton {
-      background-color: #dc2626;
+      background-color: #ef4444;
       color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 16px;
-      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.75);
-      transition: all 0.2s ease-in-out;
 
-      &:hover {
-        background-color: white;
-        color: #dc2626;
+      &:hover:not(:disabled) {
+        background-color: #dc2626;
+        transform: translateY(-1px);
+      }
+    }
+
+    .chatContent {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .visualizers {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
       }
     }
 
     .error {
-      color: #dc2626;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 14px;
+      color: #ef4444;
       text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fee2e2;
+      margin: 10px 0;
     }
 
     .success {
-      color: #16a34a;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 14px;
+      color: #059669;
       text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #ecfdf5;
+      margin: 10px 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .VoiceChat {
+    padding: 10px;
+
+    .voiceChatContainer {
+      padding: 15px;
     }
   }
 }
