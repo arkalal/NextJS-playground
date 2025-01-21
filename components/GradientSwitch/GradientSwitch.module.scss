@@ -71,7 +71,6 @@
         position: relative;
         color: #666;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 13px;
         user-select: none;
         z-index: 1;
         flex: 1;
@@ -90,27 +89,14 @@
           }
         }
 
+        &:not(.selected) {
+          svg {
+            stroke: #000;
+          }
+        }
+
         &.selected {
           color: #000;
-
-          // Update icon colors for each state
-          .gradientsystem & {
-            svg {
-              stroke: rgba(255, 192, 203, 0.8); // Darker pink for icon
-            }
-          }
-
-          .gradientlight & {
-            svg {
-              stroke: rgba(255, 235, 153, 0.8); // Darker yellow for icon
-            }
-          }
-
-          .gradientdark & {
-            svg {
-              stroke: rgba(173, 216, 230, 0.8); // Darker blue for icon
-            }
-          }
 
           &::before {
             content: "";
@@ -123,7 +109,7 @@
         }
 
         span {
-          font-size: 13px;
+          font-size: 16px;
           font-weight: 450;
         }
       }
@@ -146,17 +132,29 @@
         .option.selected::before {
           background: rgba(255, 192, 203, 0.15);
         }
+
+        svg {
+          stroke: rgba(255, 192, 203, 0.8); // Darker pink for icon
+        }
       }
 
       &.gradientLight {
         .option.selected::before {
           background: rgba(255, 235, 153, 0.2);
         }
+
+        svg {
+          stroke: rgba(255, 235, 153, 0.8); // Darker yellow for icon
+        }
       }
 
       &.gradientDark {
         .option.selected::before {
           background: rgba(173, 216, 230, 0.2);
+        }
+
+        svg {
+          stroke: rgba(173, 216, 230, 0.8); // Darker blue for icon
         }
       }
     }

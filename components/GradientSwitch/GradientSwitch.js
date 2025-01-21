@@ -42,7 +42,7 @@ const GradientSwitch = () => {
             }`}
             onClick={() => handleSelect("system")}
           >
-            <Monitor size={13} strokeWidth={1.5} />
+            <Monitor size={16} strokeWidth={3} />
             <span>System</span>
           </div>
           <div
@@ -51,7 +51,7 @@ const GradientSwitch = () => {
             }`}
             onClick={() => handleSelect("light")}
           >
-            <Sun size={13} strokeWidth={1.5} />
+            <Sun size={16} strokeWidth={3} />
             <span>Light</span>
           </div>
           <div
@@ -60,7 +60,7 @@ const GradientSwitch = () => {
             }`}
             onClick={() => handleSelect("dark")}
           >
-            <Moon size={13} strokeWidth={1.5} />
+            <Moon size={16} strokeWidth={3} />
             <span>Dark</span>
           </div>
         </div>
