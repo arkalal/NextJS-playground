@@ -2,59 +2,76 @@
   width: 100%;
   min-height: 600px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 
   .voiceChatContainer {
     width: 100%;
-    max-width: 800px;
-    background: white;
-    border-radius: 20px;
+    max-width: 380px;
+    background: black;
+    border-radius: 10px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     padding: 30px;
+    height: 600px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .phoneNumber {
+      span {
+        color: white;
+        font-size: 30px;
+
+        &:last-child {
+          font-size: 16px;
+        }
+      }
+    }
 
     .controls {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+      .startButton,
+      .endButton {
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-    .startButton,
-    .endButton {
-      padding: 12px 30px;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 500;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
       }
-    }
 
-    .startButton {
-      background-color: black;
-      color: white;
+      .startButton {
+        background-color: green;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
 
-      &:hover:not(:disabled) {
-        background-color: #333;
-        transform: translateY(-1px);
+        &:hover:not(:disabled) {
+          background-color: #333;
+          transform: translateY(-1px);
+        }
       }
-    }
 
-    .endButton {
-      background-color: #ef4444;
-      color: white;
+      .endButton {
+        background-color: #ef4444;
+        color: white;
 
-      &:hover:not(:disabled) {
-        background-color: #dc2626;
-        transform: translateY(-1px);
+        &:hover:not(:disabled) {
+          background-color: #dc2626;
+          transform: translateY(-1px);
+        }
       }
     }
 
